@@ -26,6 +26,10 @@ const HomeContainer = styled.div`
   position: relative;
   overflow: hidden;
 
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -44,6 +48,12 @@ const ContentWrapper = styled.div`
   position: relative;
   z-index: 1;
   max-width: 800px;
+  width: 100%;
+  padding: 0 10px;
+
+  @media (max-width: 768px) {
+    padding: 0 5px;
+  }
 `
 
 const IconWrapper = styled.div`
@@ -61,6 +71,15 @@ const IconWrapper = styled.div`
   animation: ${float} 3s ease-in-out infinite;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 768px) {
+    width: 90px;
+    height: 90px;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
 `
 
 const Title = styled.h1`
@@ -79,7 +98,12 @@ const Title = styled.h1`
   }
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
   }
 `
 
@@ -89,6 +113,16 @@ const Subtitle = styled.h2`
   margin-bottom: 40px;
   font-weight: 400;
   letter-spacing: -0.01em;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
 `
 
 const Description = styled.p`
@@ -97,6 +131,16 @@ const Description = styled.p`
   color: rgba(255, 255, 255, 0.6);
   max-width: 600px;
   line-height: 1.7;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `
 
 const FeaturesGrid = styled.div`
@@ -106,6 +150,13 @@ const FeaturesGrid = styled.div`
   margin: 40px 0;
   width: 100%;
   max-width: 700px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 30px 0;
+    max-width: 400px;
+  }
 `
 
 const FeatureCard = styled.div`
@@ -123,10 +174,23 @@ const FeatureCard = styled.div`
     box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
   }
 
+  @media (max-width: 768px) {
+    padding: 24px 20px;
+    
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
   .icon {
     font-size: 2.5rem;
     margin-bottom: 16px;
     color: #8b5cf6;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
   }
 
   h3 {
@@ -134,12 +198,20 @@ const FeatureCard = styled.div`
     font-size: 1.15rem;
     margin-bottom: 10px;
     font-weight: 600;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 
   p {
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
+    }
   }
 `
 
@@ -168,6 +240,19 @@ const StartButton = styled.button`
   &:active {
     transform: scale(0.98);
   }
+
+  @media (max-width: 768px) {
+    padding: 15px 36px;
+    font-size: 1rem;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 14px 30px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 280px;
+  }
 `
 
 const Footer = styled.footer`
@@ -175,6 +260,20 @@ const Footer = styled.footer`
   bottom: 20px;
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.85rem;
+  padding: 0 15px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    bottom: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    bottom: 10px;
+    position: relative;
+    margin-top: 30px;
+  }
 `
 
 function Home() {

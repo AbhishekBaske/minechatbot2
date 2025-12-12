@@ -36,12 +36,27 @@ const Header = styled.header`
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 10;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    padding: 12px 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 12px;
+  }
 `
 
 const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `
 
 const BackButton = styled.button`
@@ -62,6 +77,12 @@ const BackButton = styled.button`
     background: rgba(139, 92, 246, 0.15);
     border-color: rgba(139, 92, 246, 0.3);
   }
+
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    gap: 5px;
+  }
 `
 
 const Logo = styled.div`
@@ -80,6 +101,12 @@ const LogoIcon = styled.div`
   justify-content: center;
   font-size: 1.5rem;
   box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+
+  @media (max-width: 480px) {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
 `
 
 const LogoText = styled.h1`
@@ -87,6 +114,14 @@ const LogoText = styled.h1`
   color: #fff;
   font-weight: 600;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `
 
 const StatusBadge = styled.span`
@@ -98,6 +133,11 @@ const StatusBadge = styled.span`
   font-size: 0.75rem;
   font-weight: 500;
   backdrop-filter: blur(10px);
+
+  @media (max-width: 480px) {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
 `
 
 const MessagesContainer = styled.div`
@@ -107,6 +147,15 @@ const MessagesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  @media (max-width: 768px) {
+    padding: 15px 12px;
+    gap: 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px 8px;
+  }
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -144,6 +193,12 @@ const Avatar = styled.div`
   box-shadow: 0 4px 12px ${props => props.$isUser 
     ? 'rgba(139, 92, 246, 0.3)' 
     : 'rgba(59, 130, 246, 0.3)'};
+
+  @media (max-width: 480px) {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
 `
 
 const MessageBubble = styled.div`
@@ -163,9 +218,21 @@ const MessageBubble = styled.div`
     : 'rgba(0, 0, 0, 0.1)'};
   backdrop-filter: blur(10px);
 
+  @media (max-width: 768px) {
+    max-width: 80%;
+    padding: 12px 16px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
   p {
     margin: 0;
     white-space: pre-wrap;
+    word-break: break-word;
   }
 `
 
@@ -211,6 +278,14 @@ const InputContainer = styled.div`
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 15px 12px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px 10px;
+  }
 `
 
 const InputWrapper = styled.form`
@@ -218,6 +293,14 @@ const InputWrapper = styled.form`
   gap: 12px;
   max-width: 900px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
+  }
 `
 
 const TextInput = styled.input`
@@ -241,6 +324,18 @@ const TextInput = styled.input`
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
   }
+
+  @media (max-width: 768px) {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    border-radius: 14px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+  }
 `
 
 const SendButton = styled.button`
@@ -257,6 +352,7 @@ const SendButton = styled.button`
   gap: 8px;
   font-weight: 600;
   box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+  white-space: nowrap;
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
@@ -272,6 +368,23 @@ const SendButton = styled.button`
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    gap: 6px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    
+    span {
+      display: none;
+    }
+  }
 `
 
 const WelcomeMessage = styled.div`
@@ -279,15 +392,40 @@ const WelcomeMessage = styled.div`
   padding: 40px 20px;
   color: rgba(255, 255, 255, 0.7);
 
+  @media (max-width: 768px) {
+    padding: 30px 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 10px;
+  }
+
   h2 {
     color: #fff;
     margin-bottom: 10px;
     font-size: 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.1rem;
+    }
   }
 
   p {
     margin-bottom: 20px;
     line-height: 1.6;
+
+    @media (max-width: 768px) {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.85rem;
+    }
   }
 `
 
@@ -297,6 +435,11 @@ const SuggestedQuestions = styled.div`
   gap: 10px;
   justify-content: center;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+    margin-top: 15px;
+  }
 `
 
 const SuggestedButton = styled.button`
@@ -314,6 +457,16 @@ const SuggestedButton = styled.button`
     background: rgba(139, 92, 246, 0.15);
     border-color: rgba(139, 92, 246, 0.3);
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    font-size: 0.8rem;
   }
 `
 
@@ -368,7 +521,11 @@ const Search = () => {
     setError(null)
 
     try {
-      const result = await fetch('http://localhost:3001/api/chat', {
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:3001/api/chat'
+        : '/api/chat'
+      
+      const result = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -485,7 +642,7 @@ const Search = () => {
             disabled={loading}
           />
           <SendButton type="submit" disabled={loading || !inputValue.trim()}>
-            {loading ? 'Sending...' : <><IoSend /> Send</>}
+            {loading ? <span>Sending...</span> : <><IoSend /> <span>Send</span></>}
           </SendButton>
         </InputWrapper>
       </InputContainer>
