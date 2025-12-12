@@ -563,8 +563,6 @@ const Search = () => {
   const suggestedQuestions = [
     "What are the duties of a manager?",
     "Safety regulations in coal mines",
-    "Working hours in mines",
-    "Emergency procedures"
   ]
 
   return (
