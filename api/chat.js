@@ -1,3 +1,40 @@
+const https = require('https');
+
+function fetchWithAuth(url, options) {
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const reqOptions = {
+      hostname: urlObj.hostname,
+      path: urlObj.pathname,
+      method: options.method || 'GET',
+      headers: options.headers || {}
+    };
+
+    const req = https.request(reqOptions, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        const response = {
+          ok: res.statusCode >= 200 && res.statusCode < 300,
+          status: res.statusCode,
+          headers: {
+            get: (name) => res.headers[name.toLowerCase()]
+          },
+          text: () => Promise.resolve(data),
+          json: () => Promise.resolve(JSON.parse(data))
+        };
+        resolve(response);
+      });
+    });
+
+    req.on('error', reject);
+    if (options.body) {
+      req.write(options.body);
+    }
+    req.end();
+  });
+}
+
 module.exports = async function handler(req, res) {
   // Set Content-Type for all responses
   res.setHeader('Content-Type', 'application/json')
@@ -40,11 +77,12 @@ module.exports = async function handler(req, res) {
     // Create Basic Auth header
     const auth = Buffer.from(`${tokenId}:${tokenSecret}`).toString('base64')
 
-    const response = await fetch('https://abhishekbaske--coal-mines-chatbot2-web.modal.run/chat', {
+    const response = await fetchWithAuth('https://abhishekbaske--coal-mines-chatbot2-web.modal.run/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`
+        'Authorization': `Basic ${auth}`,
+        'Content-Length': Buffer.byteLength(JSON.stringify({ query }))
       },
       body: JSON.stringify({ query })
     })
