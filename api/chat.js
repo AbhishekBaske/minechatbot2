@@ -1,36 +1,51 @@
 const https = require('https');
 
-function fetchWithAuth(url, options) {
+function makeRequest(url, options) {
   return new Promise((resolve, reject) => {
     const urlObj = new URL(url);
+    
     const reqOptions = {
       hostname: urlObj.hostname,
-      path: urlObj.pathname,
-      method: options.method || 'GET',
-      headers: options.headers || {}
+      port: 443,
+      path: urlObj.pathname + urlObj.search,
+      method: options.method || 'POST',
+      headers: options.headers || {},
     };
 
     const req = https.request(reqOptions, (res) => {
       let data = '';
-      res.on('data', chunk => data += chunk);
+      
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      
       res.on('end', () => {
-        const response = {
+        resolve({
           ok: res.statusCode >= 200 && res.statusCode < 300,
           status: res.statusCode,
-          headers: {
-            get: (name) => res.headers[name.toLowerCase()]
-          },
-          text: () => Promise.resolve(data),
-          json: () => Promise.resolve(JSON.parse(data))
-        };
-        resolve(response);
+          statusText: res.statusMessage,
+          headers: res.headers,
+          data: data,
+          json: () => {
+            try {
+              return JSON.parse(data);
+            } catch (e) {
+              throw new Error('Invalid JSON: ' + data.substring(0, 100));
+            }
+          }
+        });
       });
     });
 
-    req.on('error', reject);
+    req.on('error', (error) => {
+      reject(error);
+    });
+
     if (options.body) {
       req.write(options.body);
     }
+    
     req.end();
   });
 }
@@ -76,36 +91,35 @@ module.exports = async function handler(req, res) {
 
     // Create Basic Auth header
     const auth = Buffer.from(`${tokenId}:${tokenSecret}`).toString('base64')
+    const body = JSON.stringify({ query })
 
-    const response = await fetchWithAuth('https://abhishekbaske--coal-mines-chatbot2-web.modal.run/chat', {
+    const response = await makeRequest('https://abhishekbaske--coal-mines-chatbot2-web.modal.run/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Basic ${auth}`,
-        'Content-Length': Buffer.byteLength(JSON.stringify({ query }))
+        'Content-Length': Buffer.byteLength(body)
       },
-      body: JSON.stringify({ query })
+      body: body
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Modal API error:', response.status, errorText)
+      console.error('Modal API error:', response.status, response.data)
       return res.status(response.status).json({ 
         error: 'Failed to get response from chatbot',
-        details: errorText 
+        details: response.data 
       })
     }
 
-    const contentType = response.headers.get('content-type')
-    if (contentType && contentType.includes('application/json')) {
-      const data = await response.json()
+    const contentType = response.headers['content-type'] || '';
+    if (contentType.includes('application/json')) {
+      const data = response.json()
       res.status(200).json(data)
     } else {
-      const text = await response.text()
-      console.error('Non-JSON response:', text)
+      console.error('Non-JSON response:', response.data)
       return res.status(500).json({ 
         error: 'Invalid response from chatbot',
-        details: 'Expected JSON but received: ' + text.substring(0, 100)
+        details: 'Expected JSON but received: ' + response.data.substring(0, 100)
       })
     }
   } catch (error) {
