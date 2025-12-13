@@ -1,4 +1,7 @@
 module.exports = async function handler(req, res) {
+  // Set Content-Type for all responses
+  res.setHeader('Content-Type', 'application/json')
+  
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -69,9 +72,14 @@ module.exports = async function handler(req, res) {
     }
   } catch (error) {
     console.error('Server error:', error)
-    res.status(500).json({ 
-      error: 'Internal server error',
-      message: error.message 
-    })
+    
+    // Ensure we always send JSON
+    if (!res.headersSent) {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(500).json({ 
+        error: 'Internal server error',
+        message: error.message || 'Unknown error'
+      })
+    }
   }
 }

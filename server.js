@@ -11,6 +11,9 @@ app.use(cors())
 app.use(express.json())
 
 app.post('/api/chat', async (req, res) => {
+  // Set Content-Type for all responses
+  res.setHeader('Content-Type', 'application/json')
+  
   try {
     const { query } = req.body
 
@@ -61,10 +64,15 @@ app.post('/api/chat', async (req, res) => {
     }
   } catch (error) {
     console.error('Server error:', error)
-    res.status(500).json({ 
-      error: 'Internal server error',
-      message: error.message 
-    })
+    
+    // Ensure we always send JSON
+    if (!res.headersSent) {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(500).json({ 
+        error: 'Internal server error',
+        message: error.message || 'Unknown error'
+      })
+    }
   }
 })
 
