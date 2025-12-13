@@ -55,8 +55,18 @@ module.exports = async function handler(req, res) {
       })
     }
 
-    const data = await response.json()
-    res.status(200).json(data)
+    const contentType = response.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json()
+      res.status(200).json(data)
+    } else {
+      const text = await response.text()
+      console.error('Non-JSON response:', text)
+      return res.status(500).json({ 
+        error: 'Invalid response from chatbot',
+        details: 'Expected JSON but received: ' + text.substring(0, 100)
+      })
+    }
   } catch (error) {
     console.error('Server error:', error)
     res.status(500).json({ 
