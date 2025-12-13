@@ -9,7 +9,7 @@ const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: #0f0f1e;
+  background: #f5f7fa;
   position: relative;
   overflow: hidden;
 
@@ -21,8 +21,8 @@ const ChatContainer = styled.div`
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
     pointer-events: none;
   }
 `
@@ -32,9 +32,9 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 16px 28px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   z-index: 10;
   flex-wrap: wrap;
   gap: 10px;
@@ -62,9 +62,9 @@ const HeaderLeft = styled.div`
 const BackButton = styled.button`
   padding: 10px 18px;
   font-size: 0.9rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  color: #1a202c;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -74,8 +74,8 @@ const BackButton = styled.button`
   backdrop-filter: blur(10px);
 
   &:hover {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.3);
+    background: #f8f9fc;
+    border-color: rgba(124, 58, 237, 0.3);
   }
 
   @media (max-width: 480px) {
@@ -111,7 +111,7 @@ const LogoIcon = styled.div`
 
 const LogoText = styled.h1`
   font-size: 1.3rem;
-  color: #fff;
+  color: #1a202c;
   font-weight: 600;
   margin: 0;
 
@@ -126,9 +126,9 @@ const LogoText = styled.h1`
 
 const StatusBadge = styled.span`
   padding: 6px 14px;
-  background: ${props => props.$online ? 'rgba(139, 92, 246, 0.15)' : 'rgba(255, 152, 0, 0.15)'};
-  color: ${props => props.$online ? '#a78bfa' : '#ff9800'};
-  border: 1px solid ${props => props.$online ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255, 152, 0, 0.3)'};
+  background: ${props => props.$online ? 'rgba(124, 58, 237, 0.1)' : 'rgba(255, 152, 0, 0.1)'};
+  color: ${props => props.$online ? '#7c3aed' : '#ff9800'};
+  border: 1px solid ${props => props.$online ? 'rgba(124, 58, 237, 0.3)' : 'rgba(255, 152, 0, 0.3)'};
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 500;
@@ -162,11 +162,11 @@ const MessagesContainer = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
   }
 `
@@ -206,17 +206,16 @@ const MessageBubble = styled.div`
   padding: 14px 20px;
   border-radius: ${props => props.$isUser ? '20px 20px 4px 20px' : '20px 20px 20px 4px'};
   background: ${props => props.$isUser 
-    ? 'linear-gradient(135deg, #8b5cf6, #3b82f6)' 
-    : 'rgba(255, 255, 255, 0.05)'};
+    ? 'linear-gradient(135deg, #7c3aed, #2563eb)' 
+    : '#ffffff'};
   border: 1px solid ${props => props.$isUser 
     ? 'transparent' 
-    : 'rgba(255, 255, 255, 0.08)'};
-  color: #fff;
+    : '#e2e8f0'};
+  color: ${props => props.$isUser ? '#fff' : '#1a202c'};
   line-height: 1.6;
   box-shadow: 0 4px 12px ${props => props.$isUser 
-    ? 'rgba(139, 92, 246, 0.2)' 
-    : 'rgba(0, 0, 0, 0.1)'};
-  backdrop-filter: blur(10px);
+    ? 'rgba(124, 58, 237, 0.2)' 
+    : 'rgba(0, 0, 0, 0.06)'};
 
   @media (max-width: 768px) {
     max-width: 80%;
@@ -238,7 +237,7 @@ const MessageBubble = styled.div`
 
 const MessageTime = styled.span`
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: #718096;
   margin-top: 5px;
   display: block;
 `
@@ -253,13 +252,15 @@ const TypingDots = styled.div`
   display: flex;
   gap: 4px;
   padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 
   span {
     width: 8px;
     height: 8px;
-    background: rgba(255, 255, 255, 0.5);
+    background: #7c3aed;
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out;
 
@@ -275,9 +276,9 @@ const TypingDots = styled.div`
 
 const InputContainer = styled.div`
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #e2e8f0;
 
   @media (max-width: 768px) {
     padding: 15px 12px;
@@ -307,22 +308,21 @@ const TextInput = styled.input`
   flex: 1;
   padding: 16px 24px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
-  color: #fff;
+  color: #1a202c;
   outline: none;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: #a0aec0;
   }
 
   &:focus {
-    border-color: rgba(139, 92, 246, 0.5);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    border-color: rgba(124, 58, 237, 0.5);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
   }
 
   @media (max-width: 768px) {
@@ -390,7 +390,7 @@ const SendButton = styled.button`
 const WelcomeMessage = styled.div`
   text-align: center;
   padding: 40px 20px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #4a5568;
 
   @media (max-width: 768px) {
     padding: 30px 15px;
@@ -401,7 +401,7 @@ const WelcomeMessage = styled.div`
   }
 
   h2 {
-    color: #fff;
+    color: #1a202c;
     margin-bottom: 10px;
     font-size: 1.5rem;
 
@@ -444,19 +444,20 @@ const SuggestedQuestions = styled.div`
 
 const SuggestedButton = styled.button`
   padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  color: #fff;
+  color: #1a202c;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
   &:hover {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.3);
+    background: #f8f9fc;
+    border-color: rgba(124, 58, 237, 0.3);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
   }
 
   @media (max-width: 768px) {

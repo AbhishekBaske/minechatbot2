@@ -22,7 +22,7 @@ const HomeContainer = styled.div`
   min-height: 100vh;
   padding: 40px 20px;
   text-align: center;
-  background: #0f0f1e;
+  background: #f5f7fa;
   position: relative;
   overflow: hidden;
 
@@ -38,8 +38,8 @@ const HomeContainer = styled.div`
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+      radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
 `
@@ -64,13 +64,12 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   border-radius: 24px;
-  color: #8b5cf6;
+  color: #7c3aed;
   animation: ${float} 3s ease-in-out infinite;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
   margin-left: auto;
   margin-right: auto;
 
@@ -85,13 +84,13 @@ const IconWrapper = styled.div`
 const Title = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 20px;
-  color: #fff;
+  color: #1a202c;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
 
   span {
-    background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -109,7 +108,7 @@ const Title = styled.h1`
 
 const Subtitle = styled.h2`
   font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #4a5568;
   margin-bottom: 40px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -128,7 +127,7 @@ const Subtitle = styled.h2`
 const Description = styled.p`
   font-size: 1.1rem;
   margin-bottom: 15px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #4a5568;
   max-width: 600px;
   line-height: 1.7;
 
@@ -160,18 +159,18 @@ const FeaturesGrid = styled.div`
 `
 
 const FeatureCard = styled.div`
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 30px 24px;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
   &:hover {
-    background: rgba(139, 92, 246, 0.08);
+    background: #f8f9fc;
     transform: translateY(-5px);
     border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.15);
   }
 
   @media (max-width: 768px) {
@@ -185,7 +184,7 @@ const FeatureCard = styled.div`
   .icon {
     font-size: 2.5rem;
     margin-bottom: 16px;
-    color: #8b5cf6;
+    color: #7c3aed;
 
     @media (max-width: 768px) {
       font-size: 2rem;
@@ -194,7 +193,7 @@ const FeatureCard = styled.div`
   }
 
   h3 {
-    color: #fff;
+    color: #1a202c;
     font-size: 1.15rem;
     margin-bottom: 10px;
     font-weight: 600;
@@ -205,7 +204,7 @@ const FeatureCard = styled.div`
   }
 
   p {
-    color: rgba(255, 255, 255, 0.5);
+    color: #4a5568;
     font-size: 0.9rem;
     line-height: 1.6;
 
@@ -258,7 +257,7 @@ const StartButton = styled.button`
 const Footer = styled.footer`
   position: absolute;
   bottom: 20px;
-  color: rgba(255, 255, 255, 0.3);
+  color: #718096;
   font-size: 0.85rem;
   padding: 0 15px;
   text-align: center;
