@@ -32,7 +32,7 @@ app.post('/api/chat', async (req, res) => {
     // Create Basic Auth header
     const auth = Buffer.from(`${tokenId}:${tokenSecret}`).toString('base64')
 
-    const response = await fetch('https://abhishekbaske--coal-mines-chatbot2-web.modal.run/chat', {
+    const response = await fetch('https://abhishekbaske--coal-mines-chatbot-web.modal.run/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
