@@ -522,9 +522,7 @@ const Search = () => {
     setError(null)
 
     try {
-      const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:3001/api/chat'
-        : '/api/chat'
+      const apiUrl = '/api/chat'
       
       const result = await fetch(apiUrl, {
         method: 'POST',

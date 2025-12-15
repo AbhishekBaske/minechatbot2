@@ -10,70 +10,14 @@ const PORT = 3001
 app.use(cors())
 app.use(express.json())
 
-app.post('/api/chat', async (req, res) => {
-  // Set Content-Type for all responses
-  res.setHeader('Content-Type', 'application/json')
-  
-  try {
-    const { query } = req.body
+import handleChatRequest from './src/apiHandler.js'
 
-    if (!query) {
-      return res.status(400).json({ error: 'Query is required' })
-    }
+// Handle chat API with shared handler (includes CORS, OPTIONS and normalized response)
+app.all('/api/chat', handleChatRequest)
 
-    const tokenId = process.env.MODAL_TOKEN_ID
-    const tokenSecret = process.env.MODAL_TOKEN_SECRET
 
-    if (!tokenId || !tokenSecret) {
-      console.error('Missing Modal credentials')
-      return res.status(500).json({ error: 'Server configuration error' })
-    }
-
-    // Create Basic Auth header
-    const auth = Buffer.from(`${tokenId}:${tokenSecret}`).toString('base64')
-
-    const response = await fetch('https://abhishekbaske--coal-mines-chatbot-web.modal.run/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`
-      },
-      body: JSON.stringify({ query })
-    })
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Modal API error:', response.status, errorText)
-      return res.status(response.status).json({ 
-        error: 'Failed to get response from chatbot',
-        details: errorText 
-      })
-    }
-
-    const contentType = response.headers.get('content-type')
-    if (contentType && contentType.includes('application/json')) {
-      const data = await response.json()
-      res.json(data)
-    } else {
-      const text = await response.text()
-      console.error('Non-JSON response:', text)
-      return res.status(500).json({ 
-        error: 'Invalid response from chatbot',
-        details: 'Expected JSON but received: ' + text.substring(0, 100)
-      })
-    }
-  } catch (error) {
-    console.error('Server error:', error)
-    
-    // Ensure we always send JSON
-    if (!res.headersSent) {
-      res.setHeader('Content-Type', 'application/json')
-      res.status(500).json({ 
-        error: 'Internal server error',
-        message: error.message || 'Unknown error'
-      })
-    }
-  }
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', modal: getModalUrl() })
 })
 
 app.listen(PORT, () => {
